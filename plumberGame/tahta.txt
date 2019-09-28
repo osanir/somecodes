@@ -1,0 +1,59 @@
+»════╗....
+.....║....
+.....║....
+.....║....
+.....║....
+.....║....
+.....║....
+.....║....
+.....╚══╗.
+........F.
+
+S00007    
+     1    
+     1    
+     1    
+     1    
+     1    
+     1    
+     1    
+     8007 
+        O 
+
+0001    Right
+0010    Left
+0100    Up
+1000    Down
+
+
+0 = right, left         0011        3
+1 = up, down            1100        12
+2 = up, down, right     1101        13
+3 = up, down, left      1110        14
+4 = right, left, down   1011        11
+5 = right, left, up     0111        7
+6 = right, down         1001        9
+7 = left, down          1010        10
+8 = right, up           0101        5
+9 = left, up            0110        6
++ = right, left, up, down 1111
+
+11 = start              0001        1
+12 = finish             
+
+.                       0000        0
+
+
+belki lazım olur:
+char _getch(){
+    struct termios old, fashion;
+    char ch;
+    tcgetattr(0, &old);
+    fashion = old;
+    fashion.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(0, TCSANOW, &fashion);
+    ch = getchar();
+
+    tcsetattr(0, TCSANOW, &old);
+    return ch;
+}
